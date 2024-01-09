@@ -17,15 +17,6 @@ class SeeAllOffersScreen extends StatefulWidget {
 
 class _SeeAllOffersScreenState extends State<SeeAllOffersScreen> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    print(
-        'SpecialOffers in See All Offers Screen: ${widget.specialOffersImagesList}');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -35,6 +26,7 @@ class _SeeAllOffersScreenState extends State<SeeAllOffersScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        surfaceTintColor: Colors.white,
       ),
       body: ListView.builder(
         itemCount: widget.specialOffersImagesList.length,

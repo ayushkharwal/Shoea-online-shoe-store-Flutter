@@ -29,3 +29,10 @@ const Color kGrey3 = Color(0xffbdbdbd);
 
 const Duration kDuration = Duration(milliseconds: 300);
 const defaultHorizontalPadding = EdgeInsets.symmetric(horizontal: 20);
+
+// HIVE BOX KEYS
+String appHiveBox = 'appHiveBox';
+
+// HIVE BOX KEYS
+String productHiveKey = 'productsKey';
+String companiesHiveKey = 'companiesKey';

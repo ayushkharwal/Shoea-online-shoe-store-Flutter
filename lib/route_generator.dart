@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoea_flutter/screens/add_to_cart_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/create_new_password.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/enter_code_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/forgot_password_screen.dart';
@@ -48,6 +49,11 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (context) =>
                 SeeAllOffersScreen(specialOffersImagesList: arg as List));
+
+      case AddToCartScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => AddToCartScreen(product: arg),
+        );
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

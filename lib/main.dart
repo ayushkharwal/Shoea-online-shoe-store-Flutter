@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/route_generator.dart';
 
-void main() {
+Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(appHiveBox);
+
   runApp(const MyApp());
 }
 

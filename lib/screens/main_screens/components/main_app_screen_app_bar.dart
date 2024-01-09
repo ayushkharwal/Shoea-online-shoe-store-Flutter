@@ -11,7 +11,7 @@ class MainAppScreenAppBar extends StatelessWidget {
     return Row(
       children: [
         const CircleAvatar(
-          radius: 30,
+          radius: 28,
           backgroundColor: kGrey2,
           child: Icon(
             Icons.person_outline_rounded,
@@ -33,7 +33,7 @@ class MainAppScreenAppBar extends StatelessWidget {
             Text(
               'Ayush Kharwal',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -44,14 +44,14 @@ class MainAppScreenAppBar extends StatelessWidget {
           onPressed: () {},
           icon: const Icon(
             Icons.notifications_outlined,
-            size: 36,
+            size: 30,
           ),
         ),
         IconButton(
           onPressed: () {},
           icon: const Icon(
             Icons.favorite_outline_sharp,
-            size: 36,
+            size: 30,
           ),
         ),
       ],
