@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 // color: Colors.black,
                 // padding: const EdgeInsets.all(20),
                 child: SvgPicture.asset(
-                  logo,
+                  AppConstants.logo,
                   height: 60,
                   theme: const SvgTheme(
                     currentColor: Colors.grey,
@@ -80,9 +80,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            Text(
-              appNameWithLogo,
-              style: const TextStyle(fontSize: 44, color: Colors.black),
+            const Text(
+              AppConstants.appNameWithLogo,
+              style: TextStyle(fontSize: 44, color: Colors.black),
             ),
           ],
         ),

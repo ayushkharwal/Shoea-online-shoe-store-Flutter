@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:shoea_flutter/constants.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/fav_products_screen.dart';
 
-class MainAppScreenAppBar extends StatelessWidget {
+class MainAppScreenAppBar extends StatefulWidget {
   const MainAppScreenAppBar({
     super.key,
   });
 
+  @override
+  State<MainAppScreenAppBar> createState() => _MainAppScreenAppBarState();
+}
+
+class _MainAppScreenAppBarState extends State<MainAppScreenAppBar> {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const CircleAvatar(
           radius: 28,
-          backgroundColor: kGrey2,
+          backgroundColor: AppConstants.kGrey2,
           child: Icon(
             Icons.person_outline_rounded,
             size: 34,
@@ -48,7 +54,13 @@ class MainAppScreenAppBar extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context)
+                .pushNamed(FavProductsScreen.routeName)
+                .then((value) {
+              setState(() {});
+            });
+          },
           icon: const Icon(
             Icons.favorite_outline_sharp,
             size: 30,

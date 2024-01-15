@@ -19,15 +19,15 @@ class _WelcomeScreen2State extends State<WelcomeScreen2> {
   List<Map<String, String>> welcomeScreenData = [
     {
       'text': 'We provide high quality products for you',
-      'image': welcome7,
+      'image': AppConstants.welcome7,
     },
     {
       'text': 'Your satisfaction is our number one priority',
-      'image': welcome2,
+      'image': AppConstants.welcome2,
     },
     {
       'text': 'Let\'s fulfill your fashion needs with Shoea right now!',
-      'image': welcome4,
+      'image': AppConstants.welcome4,
     },
   ];
 
@@ -62,7 +62,7 @@ class _WelcomeScreen2State extends State<WelcomeScreen2> {
           ),
           Expanded(
             child: Container(
-              padding: defaultHorizontalPadding,
+              padding: AppConstants.defaultHorizontalPadding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

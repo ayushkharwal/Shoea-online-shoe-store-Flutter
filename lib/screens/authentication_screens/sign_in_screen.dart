@@ -40,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
         isResponseGenerating = true;
       });
 
-      String apiUrl = '$hostNameUrl$signInUrl';
+      String apiUrl = '${ApiStrings.hostNameUrl}${ApiStrings.signInUrl}';
 
       var bodyData = {
         'email': emailController.text,
@@ -105,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: defaultHorizontalPadding,
+              padding: AppConstants.defaultHorizontalPadding,
               child: SizedBox(
                 height: size.height * 0.85,
                 child: Column(
@@ -159,7 +159,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       suffixIcon: const Icon(
                         Icons.visibility_off_rounded,
-                        color: kGrey3,
+                        color: AppConstants.kGrey3,
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {

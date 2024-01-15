@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shoea_flutter/screens/add_to_cart_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/create_new_password.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/enter_code_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/forgot_password_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/sign_in_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/sign_up_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/fav_products_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/notification_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/products_by_category_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/see_all_offers_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/main_app_screen.dart';
 import 'package:shoea_flutter/screens/splash_screen.dart';
@@ -54,6 +57,21 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => AddToCartScreen(product: arg),
         );
+
+      case ProductsByCategoryScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) =>
+              ProductsByCategoryScreen(company: arg as Map<dynamic, dynamic>),
+        );
+
+      case FavProductsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const FavProductsScreen(),
+        );
+
+      case NotificationScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => const NotificationScreen());
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

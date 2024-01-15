@@ -8,7 +8,7 @@ class CustomCircularProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircularProgressIndicator(
       strokeWidth: 2,
-      color: kPrimaryColor1,
+      color: AppConstants.kPrimaryColor1,
     );
   }
 }

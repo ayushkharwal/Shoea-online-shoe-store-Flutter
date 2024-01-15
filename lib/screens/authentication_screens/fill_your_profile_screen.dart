@@ -53,33 +53,33 @@ class FillYourProfileScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              CustomTextField(hintText: 'Full Name'),
+              const CustomTextField(hintText: 'Full Name'),
               const Spacer(),
-              CustomTextField(
+              const CustomTextField(
                 hintText: 'Date of Birth',
-                suffixIcon: const Icon(
+                suffixIcon: Icon(
                   Icons.calendar_month_rounded,
-                  color: kGrey3,
+                  color: AppConstants.kGrey3,
                 ),
               ),
               const Spacer(),
-              CustomTextField(
+              const CustomTextField(
                 hintText: 'Email',
-                suffixIcon: const Icon(
+                suffixIcon: Icon(
                   Icons.mail_rounded,
-                  color: kGrey3,
+                  color: AppConstants.kGrey3,
                 ),
               ),
               const Spacer(),
-              CustomTextField(
+              const CustomTextField(
                 hintText: 'Phone Number',
               ),
               const Spacer(),
-              CustomTextField(
+              const CustomTextField(
                 hintText: 'Gender',
-                suffixIcon: const Icon(
+                suffixIcon: Icon(
                   Icons.arrow_drop_down_rounded,
-                  color: kGrey3,
+                  color: AppConstants.kGrey3,
                 ),
               ),
               const Spacer(flex: 2),

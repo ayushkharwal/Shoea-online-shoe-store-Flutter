@@ -10,10 +10,10 @@ class ProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CircleAvatar(
       radius: 80,
-      backgroundColor: kGrey1,
+      backgroundColor: AppConstants.kGrey1,
       child: Icon(
         Icons.person_rounded,
-        color: kGrey3,
+        color: AppConstants.kGrey3,
         size: 120,
       ),
     );

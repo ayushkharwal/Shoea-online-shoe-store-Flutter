@@ -40,19 +40,19 @@ class CreateNewPassword extends StatelessWidget {
                   const Spacer(),
                   const Text('Create your New Password'),
                   const Spacer(),
-                  CustomTextField(
+                  const CustomTextField(
                     hintText: 'Enter new password',
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.lock_rounded,
-                      color: kPrimaryColor1,
+                      color: AppConstants.kPrimaryColor1,
                     ),
                   ),
                   const Spacer(),
-                  CustomTextField(
+                  const CustomTextField(
                     hintText: 'Enter new password',
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.lock_rounded,
-                      color: kPrimaryColor1,
+                      color: AppConstants.kPrimaryColor1,
                     ),
                   ),
                   const Spacer(),

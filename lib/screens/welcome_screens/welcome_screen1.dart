@@ -16,7 +16,7 @@ class WelcomeScreen1 extends StatelessWidget {
         width: double.maxFinite,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(welcome1),
+            image: AssetImage(AppConstants.welcome1),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,7 +36,7 @@ class WelcomeScreen1 extends StatelessWidget {
                     ),
                   ),
                   SvgPicture.asset(
-                    wavingHandEmoji,
+                    AppConstants.wavingHandEmoji,
                     height: 50,
                   ),
                 ],

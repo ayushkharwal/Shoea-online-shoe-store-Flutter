@@ -41,8 +41,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
         body: Column(
           children: [
             const TabBar(
-              labelColor: kPrimaryColor1,
-              indicatorColor: kPrimaryColor1,
+              labelColor: AppConstants.kPrimaryColor1,
+              indicatorColor: AppConstants.kPrimaryColor1,
               indicatorSize: TabBarIndicatorSize.tab,
               tabs: [
                 Tab(
@@ -80,40 +80,41 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 20),
                             itemBuilder: (context, index) {
-                              return OrderWidget(
-                                isActive: true,
-                                status: Container(
-                                  decoration: BoxDecoration(
-                                    color: kGrey1,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 6),
-                                  child: const Text(
-                                    'In Delivery',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ),
-                                mainButton: Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                        kPrimaryColor1,
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Track Order',
-                                      style: TextStyle(
-                                        color: kGrey1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              return Container();
+                              // return OrderWidget(
+                              //   isActive: true,
+                              //   status: Container(
+                              //     decoration: BoxDecoration(
+                              //       color: AppConstants.kGrey1,
+                              //       borderRadius: BorderRadius.circular(6),
+                              //     ),
+                              //     padding: const EdgeInsets.symmetric(
+                              //         vertical: 3, horizontal: 6),
+                              //     child: const Text(
+                              //       'In Delivery',
+                              //       style: TextStyle(
+                              //         fontSize: 10,
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   mainButton: Padding(
+                              //     padding: const EdgeInsets.only(right: 20),
+                              //     child: ElevatedButton(
+                              //       onPressed: () {},
+                              //       style: const ButtonStyle(
+                              //         backgroundColor: MaterialStatePropertyAll(
+                              //           AppConstants.kPrimaryColor1,
+                              //         ),
+                              //       ),
+                              //       child: const Text(
+                              //         'Track Order',
+                              //         style: TextStyle(
+                              //           color: AppConstants.kGrey1,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
                             },
                           ),
                         ),
@@ -133,40 +134,41 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 20),
                             itemBuilder: (context, index) {
-                              return OrderWidget(
-                                isActive: true,
-                                status: Container(
-                                  decoration: BoxDecoration(
-                                    color: kGrey1,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 3, horizontal: 6),
-                                  child: const Text(
-                                    'Completed',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ),
-                                mainButton: Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                        kPrimaryColor1,
-                                      ),
-                                    ),
-                                    child: const Text(
-                                      'Leave Review',
-                                      style: TextStyle(
-                                        color: kGrey1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              return Container();
+                              // return OrderWidget(
+                              //   isActive: true,
+                              //   status: Container(
+                              //     decoration: BoxDecoration(
+                              //       color: AppConstants.kGrey1,
+                              //       borderRadius: BorderRadius.circular(6),
+                              //     ),
+                              //     padding: const EdgeInsets.symmetric(
+                              //         vertical: 3, horizontal: 6),
+                              //     child: const Text(
+                              //       'Completed',
+                              //       style: TextStyle(
+                              //         fontSize: 10,
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   mainButton: Padding(
+                              //     padding: const EdgeInsets.only(right: 20),
+                              //     child: ElevatedButton(
+                              //       onPressed: () {},
+                              //       style: const ButtonStyle(
+                              //         backgroundColor: MaterialStatePropertyAll(
+                              //           AppConstants.kPrimaryColor1,
+                              //         ),
+                              //       ),
+                              //       child: const Text(
+                              //         'Leave Review',
+                              //         style: TextStyle(
+                              //           color: AppConstants.kGrey1,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
                             },
                           ),
                         ),

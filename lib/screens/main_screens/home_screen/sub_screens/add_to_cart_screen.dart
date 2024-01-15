@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:shoea_flutter/common/widgets/custom_button.dart';
 import 'package:shoea_flutter/constants.dart';
+import 'package:shoea_flutter/models/PlaceOrderItem.dart';
+import 'package:shoea_flutter/utils/helper_method.dart';
 
 class AddToCartScreen extends StatefulWidget {
   static const String routeName = '/add_to_cart';
@@ -25,58 +28,27 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   String selectedColor = '';
   String selectSize = '';
 
-  List<String> splitAndTrim(String inputString) {
-    // Split the string by commas
-    List<String> splitStrings = inputString.split(',');
-
-    // Remove leading and trailing spaces from each substring
-    List<String> trimmedList =
-        splitStrings.map((s) => s.trim().toLowerCase()).toList();
-
-    print('trimmedList -----------------> $trimmedList');
-
-    return trimmedList;
-  }
-
   List<String> shoeSizes = [];
   List<String> shoeColor = [];
 
-  Color _getColorFromString(String colorString) {
-    switch (colorString.toLowerCase()) {
-      case 'red':
-        return Colors.red;
+  int quantity = 1;
 
-      case 'blue':
-        return Colors.blue;
+  List<String> splitAndTrim(String inputString) {
+    List<String> splitStrings = inputString.split(',');
 
-      case 'green':
-        return Colors.green;
+    List<String> trimmedList =
+        splitStrings.map((s) => s.trim().toLowerCase()).toList();
 
-      case 'black':
-        return Colors.black;
+    // print('trimmedList -----------------> $trimmedList');
 
-      case 'white':
-        return Colors.white;
-
-      case 'brown':
-        return Colors.brown;
-
-      case 'cyan':
-        return Colors.cyan;
-
-      case 'purple':
-        return Colors.purple;
-
-      default:
-        return Colors.black;
-    }
+    return trimmedList;
   }
 
   @override
   void initState() {
     super.initState();
 
-    print('widget.product -----------------------> ${widget.product}');
+    // print('widget.product -----------------------> ${widget.product}');
 
     if (widget.product['productDescription'].length > 150) {
       firstHalf = widget.product['productDescription'].substring(0, 150);
@@ -96,8 +68,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      bottomSheet:
-          customBottomSheet(size.height, widget.product['productRetail']),
+      bottomSheet: customBottomSheet(size.height),
       body: SafeArea(
         child: ListView(
           children: [
@@ -170,7 +141,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   ),
                   secondHalf.isEmpty
                       ? Text(firstHalf)
-                      : InkWell(
+                      : GestureDetector(
                           onTap: () {
                             setState(() {
                               flag = !flag;
@@ -261,7 +232,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                 var myColor = shoeColor[index];
 
                                 Color myShoeColor =
-                                    _getColorFromString(myColor);
+                                    HelperMethod.getColorFromString(myColor);
 
                                 return GestureDetector(
                                   onTap: () {
@@ -279,6 +250,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                         color: myColor == selectedColor
                                             ? Colors.black
                                             : Colors.transparent,
+                                        width: 2,
                                       ),
                                       boxShadow: const [
                                         BoxShadow(
@@ -320,22 +292,24 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             child: Center(
                               child: Container(
                                 decoration: const BoxDecoration(
-                                  color: kGrey2,
+                                  color: AppConstants.kGrey2,
                                   border: Border(
-                                    left: BorderSide(color: kGrey3),
-                                    right: BorderSide(color: kGrey3),
+                                    left:
+                                        BorderSide(color: AppConstants.kGrey3),
+                                    right:
+                                        BorderSide(color: AppConstants.kGrey3),
                                   ),
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.only(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
                                     left: 8,
                                     right: 8,
                                     top: 6,
                                     bottom: 6,
                                   ),
                                   child: Text(
-                                    '2',
-                                    style: TextStyle(
+                                    quantity.toString(),
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -351,7 +325,11 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             bottom: 0,
                             child: IconButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () async {},
+                              onPressed: () async {
+                                setState(() {
+                                  quantity = quantity + 1;
+                                });
+                              },
                               icon: const Icon(
                                 Icons.add_rounded,
                                 size: 27,
@@ -364,7 +342,13 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                             left: -6,
                             child: IconButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () {},
+                              onPressed: () {
+                                if (quantity > 1) {
+                                  setState(() {
+                                    quantity = quantity - 1;
+                                  });
+                                }
+                              },
                               icon: const Icon(
                                 Icons.minimize_rounded,
                                 size: 27,
@@ -405,7 +389,9 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         height: 10,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: _currentPage == i ? kPrimaryColor1 : kGrey2,
+          color: _currentPage == i
+              ? AppConstants.kPrimaryColor1
+              : AppConstants.kGrey2,
         ),
       ));
     }
@@ -415,7 +401,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
     );
   }
 
-  customBottomSheet(double screenHeight, String price) {
+  customBottomSheet(double screenHeight) {
     return SizedBox(
       height: screenHeight * 0.1,
       child: Container(
@@ -448,7 +434,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                     ),
                   ),
                   Text(
-                    '\$$price',
+                    '\$${widget.product["productRetail"]}',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -460,7 +446,111 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                 height: 60,
                 width: 160,
                 margin: const EdgeInsets.all(12),
-                child: CustomButton(label: 'Add to Cart'),
+                child: CustomButton(
+                  label: 'Add to Cart',
+                  onPress: () {
+                    if (selectSize != '' && selectedColor != '') {
+                      PlaceOrderItem placeOrderItem = PlaceOrderItem(
+                        productName: widget.product['productName'],
+                        productSize: selectSize,
+                        productColor: selectedColor,
+                        productRetail: widget.product['productRetail'],
+                        retialerId: widget.product['retailerId'],
+                        productId: widget.product['productId'],
+                        quantity: quantity.toString(),
+                        retailerName: widget.product['retailerName'],
+                        imageLink: widget.product['productImages'][0],
+                      );
+
+                      // print('******************************');
+
+                      // print(
+                      //     'placeOrderItem --------------------> ${placeOrderItem.toJson()}');
+
+                      Box box = Hive.box(AppConstants.appHiveBox);
+
+                      List cartList =
+                          box.get(AppConstants.cartProductHiveKey) ?? [];
+
+                      // log('cartList before adding: ${jsonEncode(cartList)}');
+
+                      List tempList = cartList;
+
+                      bool productAlreadyInList = false;
+
+                      // Check if the product is already in the cartList
+                      if (cartList.isNotEmpty) {
+                        for (var item in cartList) {
+                          // print('item.productId: ${item.productId}');
+
+                          // print(
+                          //     'placeOrderItem.productId: ${placeOrderItem.productId}');
+
+                          if (item.productId == placeOrderItem.productId) {
+                            productAlreadyInList = true;
+
+                            // print('PRODUCT ALREADY IN CART!!!');
+
+                            item.quantity = placeOrderItem.quantity;
+                            item.productSize = placeOrderItem.productSize;
+                            item.productColor = placeOrderItem.productColor;
+
+                            // print('BOOM 1');
+                          }
+                        }
+
+                        if (!productAlreadyInList) {
+                          tempList.add(placeOrderItem);
+                          // print('NEW PRODUCT ADDED!!!');
+
+                          // print('BOOM 2');
+                        }
+                      } else {
+                        tempList.add(placeOrderItem);
+
+                        // print('BOOM 4');
+                      }
+
+                      cartList = tempList;
+
+                      box.put(AppConstants.cartProductHiveKey, cartList);
+
+                      // log('cartList After adding: ${jsonEncode(box.get(AppConstants.cartProductHiveKey))}');
+                    } else if (selectSize == '' && selectedColor != '') {
+                      HelperMethod.showSnackbar(
+                        context,
+                        const Text('Please select a size!'),
+                      );
+                    } else if (selectedColor == '' && selectSize != '') {
+                      HelperMethod.showSnackbar(
+                        context,
+                        const Text('Please select a color!'),
+                      );
+                    } else {
+                      HelperMethod.showSnackbar(
+                        context,
+                        const Text('Please select a size and a color!'),
+                      );
+                    }
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Box box = Hive.box(AppConstants.appHiveBox);
+
+                  List cartList =
+                      box.get(AppConstants.cartProductHiveKey) ?? [];
+
+                  box.put(
+                    AppConstants.cartProductHiveKey,
+                    [],
+                  );
+
+                  // print(
+                  //     'cartList: ${box.get(AppConstants.cartProductHiveKey)}');
+                },
+                child: const Text('Clear List'),
               ),
             ],
           ),

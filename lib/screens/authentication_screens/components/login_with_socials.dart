@@ -12,9 +12,9 @@ class LoginWithSocials extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        SocialsIcon(iconPath: fbIcon),
-        SocialsIcon(iconPath: googleIcon),
-        SocialsIcon(iconPath: appleIcon),
+        SocialsIcon(iconPath: AppConstants.fbIcon),
+        SocialsIcon(iconPath: AppConstants.googleIcon),
+        SocialsIcon(iconPath: AppConstants.appleIcon),
       ],
     );
   }

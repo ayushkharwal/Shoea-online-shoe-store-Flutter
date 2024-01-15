@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shoea_flutter/constants.dart';
 
 class SeeAllOffersScreen extends StatefulWidget {
+  static const String routeName = '/special_offers';
+
   const SeeAllOffersScreen({
     super.key,
     required this.specialOffersImagesList,
   });
-
-  static const String routeName = '/special_offers';
 
   final List specialOffersImagesList;
 
@@ -36,7 +36,7 @@ class _SeeAllOffersScreenState extends State<SeeAllOffersScreen> {
             // padding: const EdgeInsets.all(20),
             margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: kGrey1,
+              color: AppConstants.kGrey1,
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
                 image: NetworkImage(

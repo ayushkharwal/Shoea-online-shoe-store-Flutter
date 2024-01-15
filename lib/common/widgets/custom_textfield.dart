@@ -1,9 +1,8 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shoea_flutter/constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({
+  const CustomTextField({
     super.key,
     this.prefixIcon,
     this.suffixIcon,
@@ -13,16 +12,18 @@ class CustomTextField extends StatelessWidget {
     this.readOnly,
     this.maxLength,
     this.label,
+    this.onChanged,
   });
 
-  Icon? prefixIcon;
-  Icon? suffixIcon;
-  String? hintText;
-  TextEditingController? textEditingController;
-  var validator;
-  bool? readOnly;
-  int? maxLength;
-  String? label;
+  final Icon? prefixIcon;
+  final Icon? suffixIcon;
+  final String? hintText;
+  final TextEditingController? textEditingController;
+  final validator;
+  final bool? readOnly;
+  final int? maxLength;
+  final String? label;
+  final onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -32,27 +33,32 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       readOnly: readOnly ?? false,
       maxLength: maxLength,
+      onChanged: onChanged,
       decoration: InputDecoration(
         label: Text(
           '$label',
         ),
-        floatingLabelStyle:
-            const TextStyle(color: kPrimaryColor1, fontWeight: FontWeight.bold),
-        labelStyle: const TextStyle(color: kGrey3),
+        floatingLabelStyle: const TextStyle(
+          color: AppConstants.kPrimaryColor1,
+          fontWeight: FontWeight.bold,
+        ),
+        labelStyle: const TextStyle(color: AppConstants.kGrey3),
         filled: true,
-        fillColor: kGrey1,
+        fillColor: AppConstants.kGrey1,
         prefixIcon: prefixIcon,
         prefixIconColor: MaterialStateColor.resolveWith(
-          (states) =>
-              states.contains(MaterialState.focused) ? kPrimaryColor1 : kGrey3,
+          (states) => states.contains(MaterialState.focused)
+              ? AppConstants.kPrimaryColor1
+              : AppConstants.kGrey3,
         ),
         suffixIcon: suffixIcon,
         suffixIconColor: MaterialStateColor.resolveWith(
-          (states) =>
-              states.contains(MaterialState.focused) ? kPrimaryColor1 : kGrey3,
+          (states) => states.contains(MaterialState.focused)
+              ? AppConstants.kPrimaryColor1
+              : AppConstants.kGrey3,
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(color: kGrey3),
+        hintStyle: const TextStyle(color: AppConstants.kGrey3),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide.none,

@@ -36,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         isResponseGenerating = true;
       });
 
-      String apiUrl = '$hostNameUrl$signUpUrl';
+      String apiUrl = '${ApiStrings.hostNameUrl}${ApiStrings.signUpUrl}';
 
       var bodyData = {
         'email': emailController.text,
@@ -107,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           key: _formKey,
           child: Center(
             child: Padding(
-              padding: defaultHorizontalPadding,
+              padding: AppConstants.defaultHorizontalPadding,
               child: SizedBox(
                 height: size.height * 0.83,
                 child: Column(
@@ -161,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       suffixIcon: const Icon(
                         Icons.visibility_off_rounded,
-                        color: kGrey3,
+                        color: AppConstants.kGrey3,
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {

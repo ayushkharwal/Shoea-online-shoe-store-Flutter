@@ -31,7 +31,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: defaultHorizontalPadding,
+        padding: AppConstants.defaultHorizontalPadding,
         child: Column(
           children: [
             SvgPicture.asset(
@@ -85,7 +85,7 @@ class ContactDetail extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: kGrey3),
+        border: Border.all(color: AppConstants.kGrey3),
         borderRadius: BorderRadius.circular(36),
       ),
       child: Padding(
@@ -97,7 +97,7 @@ class ContactDetail extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundColor: kGrey2,
+              backgroundColor: AppConstants.kGrey2,
               child: Icon(
                 iconData,
                 size: 24,

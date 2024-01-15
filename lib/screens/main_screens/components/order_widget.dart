@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoea_flutter/constants.dart';
+import 'package:shoea_flutter/utils/helper_method.dart';
 
 class OrderWidget extends StatelessWidget {
   const OrderWidget({
@@ -8,6 +9,14 @@ class OrderWidget extends StatelessWidget {
     this.status,
     required this.isActive,
     required this.mainButton,
+
+    // Imp Stuff
+    required this.label,
+    required this.productColor,
+    required this.productSize,
+    required this.retail,
+    required this.quantity,
+    required this.productImage,
   });
 
   final Widget? addWidget;
@@ -15,12 +24,19 @@ class OrderWidget extends StatelessWidget {
   final Widget mainButton;
   final bool isActive;
 
+  final String label;
+  final String productColor;
+  final String productSize;
+  final String retail;
+  final String quantity;
+  final String productImage;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 150,
       width: double.maxFinite,
-      margin: defaultHorizontalPadding,
+      margin: AppConstants.defaultHorizontalPadding,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -40,8 +56,12 @@ class OrderWidget extends StatelessWidget {
             width: 120,
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: kGrey1,
+              color: AppConstants.kGrey1,
               borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: NetworkImage(productImage),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(
@@ -52,11 +72,15 @@ class OrderWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Air Jordan 3 Retro',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: Text(
+                        label,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     isActive
@@ -67,16 +91,21 @@ class OrderWidget extends StatelessWidget {
                           ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.black,
                       radius: 6,
+                      child: CircleAvatar(
+                        backgroundColor:
+                            HelperMethod.getColorFromString(productColor),
+                        radius: 5,
+                      ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Text(
-                      'Silver | Size = 41',
-                      style: TextStyle(fontSize: 12),
+                      '$productColor | Size = $productSize',
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ],
                 ),

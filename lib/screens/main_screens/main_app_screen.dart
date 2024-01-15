@@ -29,8 +29,9 @@ class _MainAppScreenState extends State<MainAppScreen> {
     return Scaffold(
       body: tabsBody[currentTabIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: kPrimaryColor1,
-        unselectedItemColor: kGrey3,
+        backgroundColor: AppConstants.kGrey1,
+        selectedItemColor: AppConstants.kPrimaryColor1,
+        unselectedItemColor: AppConstants.kGrey3,
         showUnselectedLabels: true,
         currentIndex: currentTabIndex,
         type: BottomNavigationBarType.fixed,
