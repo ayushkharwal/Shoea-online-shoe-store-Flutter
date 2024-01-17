@@ -39,4 +39,8 @@ class AppConstants {
   static String companiesHiveKey = 'companiesKey';
   static String favProductsHiveKey = 'favProductsKey';
   static String cartProductHiveKey = 'cartProductKey';
+
+  // SHARED PREFERENCES KEYS
+  static String spTokenKey = 'token';
+  static String spEmailKey = 'spEmail';
 }

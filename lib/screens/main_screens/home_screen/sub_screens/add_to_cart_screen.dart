@@ -248,7 +248,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(
                                         color: myColor == selectedColor
-                                            ? Colors.black
+                                            ? Colors.amber
                                             : Colors.transparent,
                                         width: 2,
                                       ),
@@ -462,60 +462,36 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                         imageLink: widget.product['productImages'][0],
                       );
 
-                      // print('******************************');
-
-                      // print(
-                      //     'placeOrderItem --------------------> ${placeOrderItem.toJson()}');
-
                       Box box = Hive.box(AppConstants.appHiveBox);
 
                       List cartList =
                           box.get(AppConstants.cartProductHiveKey) ?? [];
 
-                      // log('cartList before adding: ${jsonEncode(cartList)}');
-
                       List tempList = cartList;
 
                       bool productAlreadyInList = false;
 
-                      // Check if the product is already in the cartList
                       if (cartList.isNotEmpty) {
                         for (var item in cartList) {
-                          // print('item.productId: ${item.productId}');
-
-                          // print(
-                          //     'placeOrderItem.productId: ${placeOrderItem.productId}');
-
                           if (item.productId == placeOrderItem.productId) {
                             productAlreadyInList = true;
-
-                            // print('PRODUCT ALREADY IN CART!!!');
 
                             item.quantity = placeOrderItem.quantity;
                             item.productSize = placeOrderItem.productSize;
                             item.productColor = placeOrderItem.productColor;
-
-                            // print('BOOM 1');
                           }
                         }
 
                         if (!productAlreadyInList) {
                           tempList.add(placeOrderItem);
-                          // print('NEW PRODUCT ADDED!!!');
-
-                          // print('BOOM 2');
                         }
                       } else {
                         tempList.add(placeOrderItem);
-
-                        // print('BOOM 4');
                       }
 
                       cartList = tempList;
 
                       box.put(AppConstants.cartProductHiveKey, cartList);
-
-                      // log('cartList After adding: ${jsonEncode(box.get(AppConstants.cartProductHiveKey))}');
                     } else if (selectSize == '' && selectedColor != '') {
                       HelperMethod.showSnackbar(
                         context,
@@ -534,23 +510,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                     }
                   },
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Box box = Hive.box(AppConstants.appHiveBox);
-
-                  List cartList =
-                      box.get(AppConstants.cartProductHiveKey) ?? [];
-
-                  box.put(
-                    AppConstants.cartProductHiveKey,
-                    [],
-                  );
-
-                  // print(
-                  //     'cartList: ${box.get(AppConstants.cartProductHiveKey)}');
-                },
-                child: const Text('Clear List'),
               ),
             ],
           ),

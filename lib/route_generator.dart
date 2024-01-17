@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/add_new_address_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/shipping_address_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/create_new_password.dart';
 import 'package:shoea_flutter/screens/authentication_screens/forgot_password_screen/enter_code_screen.dart';
@@ -72,6 +74,14 @@ class RouteGenerator {
       case NotificationScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
+
+      case ShippingAddressScreen.routeName:
+        return MaterialPageRoute(builder: (context) => ShippingAddressScreen());
+
+      case AddNewAddressScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => AddNewAddressScreen(),
+        );
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

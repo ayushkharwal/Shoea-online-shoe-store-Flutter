@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoea_flutter/constants.dart';
-import 'package:shoea_flutter/screens/main_screens/cart_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/cart_screen/cart_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/home_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/orders_screens.dart';
 import 'package:shoea_flutter/screens/main_screens/profile_screen.dart';

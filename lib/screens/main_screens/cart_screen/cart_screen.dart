@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:shoea_flutter/common/widgets/custom_button.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/screens/authentication_screens/components/app_logo.dart';
+import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/shipping_address_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/components/order_widget.dart';
 
 class CartScreen extends StatefulWidget {
@@ -26,24 +28,15 @@ class _CartScreenState extends State<CartScreen> {
 
     cartList = box.get(AppConstants.cartProductHiveKey) ?? [];
 
-    log('cartList in CartScreen: $cartList');
-
     orderItemsId = cartList.map((item) => item.productId).toList();
 
-    // Now, you have a list of productId values in productIdList
-    log('orderItemsId: $orderItemsId');
-
     List allProducts = box.get(AppConstants.productHiveKey);
-
-    log('allProducts: $allProducts');
 
     for (Map<String, dynamic> product in allProducts) {
       if (orderItemsId.contains(product['productId'])) {
         filteredProducts.add(product);
       }
     }
-
-    // log('Filtered Products: ${jsonEncode(filteredProducts)}');
   }
 
   @override
@@ -52,6 +45,10 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
 
     getCartItems();
+
+    // log('cartList: ${jsonEncode(cartList)}');
+
+    // log('filteredProducts: $filteredProducts');
   }
 
   @override
@@ -86,6 +83,17 @@ class _CartScreenState extends State<CartScreen> {
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 20),
                   itemBuilder: (context, index) {
+                    int productQuantity = int.parse(cartList[index].quantity);
+
+                    var wholeProduct = filteredProducts.firstWhere(
+                      (product) =>
+                          product['productId'] == cartList[index].productId,
+                      orElse: () => Map<String,
+                          dynamic>(), // Return an empty map if not found
+                    );
+
+                    // log('wholeProduct: $wholeProduct');
+
                     return OrderWidget(
                       label: cartList[index].productName,
                       productColor: cartList[index].productColor,
@@ -93,6 +101,7 @@ class _CartScreenState extends State<CartScreen> {
                       retail: cartList[index].productRetail,
                       quantity: cartList[index].quantity,
                       productImage: cartList[index].imageLink,
+                      wholeProduct: wholeProduct,
                       isActive: false,
                       mainButton: Container(
                         margin: const EdgeInsets.only(right: 14),
@@ -100,28 +109,73 @@ class _CartScreenState extends State<CartScreen> {
                           color: AppConstants.kGrey1,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Row(
+                        child: Stack(
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 20),
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                            Container(
+                              width: 100,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                // border: Border.all(color: Colors.black54),
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppConstants.kGrey2,
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 8,
+                                    right: 8,
+                                    top: 6,
+                                    bottom: 6,
+                                  ),
+                                  child: Text(
+                                    cartList[index].quantity,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            Text(cartList[index].quantity),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 8.0,
-                                horizontal: 20,
+                            Positioned(
+                              right: -5,
+                              top: 0,
+                              bottom: 0,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () async {
+                                  setState(() {
+                                    productQuantity = productQuantity + 1;
+                                    cartList[index].quantity =
+                                        productQuantity.toString();
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.add_rounded,
+                                  size: 18,
+                                  color: Colors.black,
+                                ),
                               ),
-                              child: Text(
-                                '+',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                            ),
+                            Positioned(
+                              bottom: -2,
+                              left: -6,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  if (productQuantity > 1) {
+                                    setState(() {
+                                      productQuantity = productQuantity - 1;
+                                      cartList[index].quantity =
+                                          productQuantity.toString();
+                                    });
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.minimize_rounded,
+                                  size: 18,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -182,7 +236,13 @@ class _CartScreenState extends State<CartScreen> {
               SizedBox(
                 height: 60,
                 width: 200,
-                child: CustomButton(label: 'Checkout'),
+                child: CustomButton(
+                  label: 'Checkout',
+                  onPress: () {
+                    Navigator.of(context)
+                        .pushNamed(ShippingAddressScreen.routeName);
+                  },
+                ),
               ),
             ],
           ),

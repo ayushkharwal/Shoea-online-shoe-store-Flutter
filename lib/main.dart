@@ -9,6 +9,7 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(PlaceOrderItemAdapter());
+
   await Hive.openBox(AppConstants.appHiveBox);
 
   runApp(const MyApp());

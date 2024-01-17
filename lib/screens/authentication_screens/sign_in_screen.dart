@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
         'password': passwordController.text,
       };
 
-      var response = await http.post(
+      http.Response response = await http.post(
         Uri.parse(apiUrl),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(bodyData),
@@ -65,7 +65,8 @@ class _SignInScreenState extends State<SignInScreen> {
       }
       if (responseData['message'] == 'Login successful') {
         var prefs = await SharedPreferences.getInstance();
-        prefs.setString('token', responseData['token']);
+        prefs.setString(AppConstants.spTokenKey, responseData['token']);
+        prefs.setString(AppConstants.spEmailKey, emailController.text);
         return 'Login successful';
       }
       if (responseData['message'] == 'That email is not registered') {
