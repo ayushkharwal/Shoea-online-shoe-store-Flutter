@@ -434,7 +434,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                     ),
                   ),
                   Text(
-                    '\$${widget.product["productRetail"]}',
+                    '\$${(int.parse(widget.product["productRetail"]) * quantity).toString()}',
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

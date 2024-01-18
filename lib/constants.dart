@@ -21,6 +21,12 @@ class AppConstants {
   static const String fbIcon = 'assets/icons/fb.svg';
   static const String googleIcon = 'assets/icons/google.svg';
   static const String appleIcon = 'assets/icons/apple.svg';
+  static const String paypalIcon = 'assets/icons/paypal.svg';
+  static const String masterCardIcon = 'assets/icons/mastercard.svg';
+  static const String walletIcon = 'assets/icons/wallet.svg';
+  static const String codIcon = 'assets/icons/cod.svg';
+  static const String orderPlacedIcon = 'assets/icons/orderplaced.svg';
+  static const String pinGeneratedIcon = 'assets/icons/pingenerated.svg';
 
 // COLORS
   static const Color kPrimaryColor1 = Colors.black;
@@ -43,4 +49,5 @@ class AppConstants {
   // SHARED PREFERENCES KEYS
   static String spTokenKey = 'token';
   static String spEmailKey = 'spEmail';
+  static String spAddressKey = 'spAddress';
 }

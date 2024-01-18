@@ -3,27 +3,45 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoea_flutter/common/widgets/custom_button.dart';
+import 'package:shoea_flutter/common/widgets/custom_circularprogressbar.dart';
 import 'package:shoea_flutter/common/widgets/custom_textfield.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/utils/api_strings.dart';
 import 'package:http/http.dart' as http;
+import 'package:shoea_flutter/utils/helper_method.dart';
 
-class AddNewAddressScreen extends StatelessWidget {
+class AddNewAddressScreen extends StatefulWidget {
   static const String routeName = 'add_new_address';
 
   AddNewAddressScreen({super.key});
 
+  @override
+  State<AddNewAddressScreen> createState() => _AddNewAddressScreenState();
+}
+
+class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   final TextEditingController addressTypeController = TextEditingController();
+
   final TextEditingController streetController = TextEditingController();
+
   final TextEditingController cityController = TextEditingController();
+
   final TextEditingController stateController = TextEditingController();
+
   final TextEditingController postalCodeController = TextEditingController();
+
   final TextEditingController countryController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
+  bool isResponseGenerating = false;
+
   Future<String> addAddressFunc() async {
     try {
+      setState(() {
+        isResponseGenerating = true;
+      });
+
       String apiUrl = '${ApiStrings.hostNameUrl}${ApiStrings.addAddressUrl}';
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -51,9 +69,27 @@ class AddNewAddressScreen extends StatelessWidget {
         body: jsonEncode(bodyData),
       );
 
+      var responseData = jsonDecode(response.body);
+
+      if (responseData['msg'] == "Address added successfully") {
+        if (!context.mounted) return '';
+        HelperMethod.showSnackbar(
+          context,
+          const Text('Address added successfully!'),
+        );
+      }
+
       print('addAddressFunc() response.body: ${response.body}');
+
+      setState(() {
+        isResponseGenerating = false;
+      });
     } catch (e) {
       print('addAddressFunc error: $e');
+
+      setState(() {
+        isResponseGenerating = false;
+      });
     }
 
     return 'Address Added';
@@ -150,16 +186,20 @@ class AddNewAddressScreen extends StatelessWidget {
                   // const SizedBox(height: 20),
                   // CustomTextField(label: 'longitude',),
                   const SizedBox(height: 40),
-                  CustomButton(
-                    label: 'Add Address',
-                    onPress: () async {
-                      if (_formKey.currentState!.validate()) {
-                        String addAddress = await addAddressFunc();
+                  isResponseGenerating
+                      ? const Center(
+                          child: CustomCircularProgressBar(),
+                        )
+                      : CustomButton(
+                          label: 'Add Address',
+                          onPress: () async {
+                            if (_formKey.currentState!.validate()) {
+                              String addAddress = await addAddressFunc();
 
-                        print('addressAddress: $addAddress');
-                      }
-                    },
-                  ),
+                              print('addressAddress: $addAddress');
+                            }
+                          },
+                        ),
                 ],
               ),
             ),

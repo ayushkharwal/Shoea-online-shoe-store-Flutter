@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
 import 'package:shoea_flutter/utils/helper_method.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({
+  OrderWidget({
     super.key,
     this.addWidget,
     this.status,
@@ -19,6 +20,7 @@ class OrderWidget extends StatelessWidget {
     required this.quantity,
     required this.productImage,
     required this.wholeProduct,
+    required this.deleteFunc,
   });
 
   final Widget? addWidget;
@@ -33,6 +35,7 @@ class OrderWidget extends StatelessWidget {
   final String quantity;
   final String productImage;
   final Map<String, dynamic> wholeProduct;
+  var deleteFunc;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +108,7 @@ class OrderWidget extends StatelessWidget {
                       isActive
                           ? const SizedBox.shrink()
                           : IconButton(
-                              onPressed: () {},
+                              onPressed: deleteFunc,
                               icon: const Icon(Icons.delete_outline_rounded),
                             ),
                     ],
@@ -133,9 +136,9 @@ class OrderWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '\$105.00',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      Text(
+                        '\$$retail',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       mainButton,
                     ],

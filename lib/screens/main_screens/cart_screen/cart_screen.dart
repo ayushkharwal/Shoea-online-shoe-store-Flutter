@@ -18,10 +18,20 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   List cartList = [];
-
   List orderItemsId = [];
-
   List filteredProducts = [];
+
+  int totalPrice = 0;
+
+  calculateTotalPrice() {
+    totalPrice = 0;
+
+    for (var item in cartList) {
+      int quantity = int.parse(item.quantity);
+      int productRetail = int.parse(item.productRetail);
+      totalPrice += quantity * productRetail;
+    }
+  }
 
   getCartItems() {
     Box box = Hive.box(AppConstants.appHiveBox);
@@ -32,10 +42,21 @@ class _CartScreenState extends State<CartScreen> {
 
     List allProducts = box.get(AppConstants.productHiveKey);
 
-    for (Map<String, dynamic> product in allProducts) {
+    for (Map<dynamic, dynamic> product in allProducts) {
       if (orderItemsId.contains(product['productId'])) {
         filteredProducts.add(product);
       }
+    }
+
+    calculateTotalPrice();
+  }
+
+  void handleClick(int item) {
+    switch (item) {
+      case 0:
+        setState(() {
+          cartList.clear();
+        });
     }
   }
 
@@ -46,9 +67,7 @@ class _CartScreenState extends State<CartScreen> {
 
     getCartItems();
 
-    // log('cartList: ${jsonEncode(cartList)}');
-
-    // log('filteredProducts: $filteredProducts');
+    log('cartList: ${jsonEncode(cartList)}');
   }
 
   @override
@@ -69,6 +88,19 @@ class _CartScreenState extends State<CartScreen> {
             'My Cart',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: PopupMenuButton<int>(
+                onSelected: (item) => handleClick(item),
+                itemBuilder: (context) => [
+                  const PopupMenuItem<int>(
+                      value: 0, child: Text('Clear Cart List')),
+                  // PopupMenuItem<int>(value: 1, child: Text('Settings')),
+                ],
+              ),
+            ),
+          ],
         ),
         bottomSheet: customBottomSheet(size.height),
         body: SingleChildScrollView(
@@ -88,8 +120,7 @@ class _CartScreenState extends State<CartScreen> {
                     var wholeProduct = filteredProducts.firstWhere(
                       (product) =>
                           product['productId'] == cartList[index].productId,
-                      orElse: () => Map<String,
-                          dynamic>(), // Return an empty map if not found
+                      orElse: () => Map<String, dynamic>(),
                     );
 
                     // log('wholeProduct: $wholeProduct');
@@ -98,11 +129,19 @@ class _CartScreenState extends State<CartScreen> {
                       label: cartList[index].productName,
                       productColor: cartList[index].productColor,
                       productSize: cartList[index].productSize,
-                      retail: cartList[index].productRetail,
+                      retail: (int.parse(cartList[index].productRetail) *
+                              int.parse(cartList[index].quantity))
+                          .toString(),
                       quantity: cartList[index].quantity,
                       productImage: cartList[index].imageLink,
                       wholeProduct: wholeProduct,
                       isActive: false,
+                      deleteFunc: () {
+                        setState(() {
+                          cartList.removeAt(index);
+                          calculateTotalPrice();
+                        });
+                      },
                       mainButton: Container(
                         margin: const EdgeInsets.only(right: 14),
                         decoration: BoxDecoration(
@@ -149,6 +188,8 @@ class _CartScreenState extends State<CartScreen> {
                                     productQuantity = productQuantity + 1;
                                     cartList[index].quantity =
                                         productQuantity.toString();
+
+                                    calculateTotalPrice();
                                   });
                                 },
                                 icon: const Icon(
@@ -169,6 +210,8 @@ class _CartScreenState extends State<CartScreen> {
                                       productQuantity = productQuantity - 1;
                                       cartList[index].quantity =
                                           productQuantity.toString();
+
+                                      calculateTotalPrice();
                                     });
                                   }
                                 },
@@ -213,11 +256,11 @@ class _CartScreenState extends State<CartScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Total Price',
                     style: TextStyle(
                       color: Colors.grey,
@@ -225,8 +268,8 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Text(
-                    '\$585.00',
-                    style: TextStyle(
+                    '\$$totalPrice',
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
