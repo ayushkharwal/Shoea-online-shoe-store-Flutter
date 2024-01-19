@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoea_flutter/screens/authentication_screens/create_order_pin_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/add_new_address_screen.dart';
-import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/enter_pin_for_order_confirmation_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/select_payment_method_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/shipping_address_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
@@ -51,7 +49,10 @@ class RouteGenerator {
             builder: (context) => const CreateNewPassword());
 
       case MainAppScreen.routeName:
-        return MaterialPageRoute(builder: (context) => const MainAppScreen());
+        return MaterialPageRoute(
+            builder: (context) => MainAppScreen(
+                  currentTabIndex: arg as int?,
+                ));
 
       case SeeAllOffersScreen.routeName:
         return MaterialPageRoute(
@@ -91,15 +92,6 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const SelectPaymentMethodScreen(),
         );
-
-      case EnterYourPinForOrderConfirmationScreen.routeName:
-        return MaterialPageRoute(
-            builder: (context) =>
-                const EnterYourPinForOrderConfirmationScreen());
-
-      case CreateOrderPinScreen.routeName:
-        return MaterialPageRoute(
-            builder: (context) => const CreateOrderPinScreen());
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

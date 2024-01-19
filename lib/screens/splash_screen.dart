@@ -37,7 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (appState == 3) {
       if (!context.mounted) return;
       Navigator.pop(context);
-      Navigator.of(context).pushNamed(MainAppScreen.routeName);
+      Navigator.of(context).pushNamed(
+        MainAppScreen.routeName,
+        arguments: 0,
+      );
     } else {
       if (!context.mounted) return;
       Navigator.pop(context);

@@ -21,6 +21,7 @@ class OrderWidget extends StatelessWidget {
     required this.productImage,
     required this.wholeProduct,
     required this.deleteFunc,
+    this.onTapFunc,
   });
 
   final Widget? addWidget;
@@ -34,19 +35,14 @@ class OrderWidget extends StatelessWidget {
   final String retail;
   final String quantity;
   final String productImage;
-  final Map<String, dynamic> wholeProduct;
+  final Map<dynamic, dynamic> wholeProduct;
   var deleteFunc;
+  var onTapFunc;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          AddToCartScreen.routeName,
-          arguments: wholeProduct,
-        );
-      },
+      onTap: onTapFunc,
       child: Container(
         height: 150,
         width: double.maxFinite,

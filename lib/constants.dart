@@ -50,4 +50,5 @@ class AppConstants {
   static String spTokenKey = 'token';
   static String spEmailKey = 'spEmail';
   static String spAddressKey = 'spAddress';
+  static String spTotalPrice = 'spTotalPrice';
 }

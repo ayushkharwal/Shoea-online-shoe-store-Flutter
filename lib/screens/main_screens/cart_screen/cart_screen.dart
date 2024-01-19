@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoea_flutter/common/widgets/custom_button.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/screens/authentication_screens/components/app_logo.dart';
 import 'package:shoea_flutter/screens/main_screens/cart_screen/sub_screens/shipping_address_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/components/order_widget.dart';
+import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -23,7 +25,7 @@ class _CartScreenState extends State<CartScreen> {
 
   int totalPrice = 0;
 
-  calculateTotalPrice() {
+  calculateTotalPrice() async {
     totalPrice = 0;
 
     for (var item in cartList) {
@@ -31,6 +33,9 @@ class _CartScreenState extends State<CartScreen> {
       int productRetail = int.parse(item.productRetail);
       totalPrice += quantity * productRetail;
     }
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(AppConstants.spTotalPrice, totalPrice);
   }
 
   getCartItems() {
@@ -141,6 +146,13 @@ class _CartScreenState extends State<CartScreen> {
                           cartList.removeAt(index);
                           calculateTotalPrice();
                         });
+                      },
+                      onTapFunc: () {
+                        Navigator.pushNamed(
+                          context,
+                          AddToCartScreen.routeName,
+                          arguments: wholeProduct,
+                        );
                       },
                       mainButton: Container(
                         margin: const EdgeInsets.only(right: 14),

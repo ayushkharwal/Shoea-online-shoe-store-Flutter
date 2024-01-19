@@ -136,7 +136,7 @@ class _EnterYourPinForOrderConfirmationScreenState
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      'You have successfully made order',
+                      'You have successfully placed order',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,

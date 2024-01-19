@@ -5,10 +5,14 @@ class CustomButton extends StatelessWidget {
     super.key,
     this.onPress,
     required this.label,
+    this.buttonColor,
+    this.labelColor,
   });
 
   var onPress;
   String label;
+  Color? buttonColor;
+  Color? labelColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +21,14 @@ class CustomButton extends StatelessWidget {
       width: double.maxFinite,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.black),
+          backgroundColor:
+              MaterialStateProperty.all(buttonColor ?? Colors.black),
         ),
         onPressed: onPress,
         child: Text(
           label,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: labelColor ?? Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),

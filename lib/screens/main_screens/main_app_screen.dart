@@ -6,7 +6,8 @@ import 'package:shoea_flutter/screens/main_screens/orders_screens.dart';
 import 'package:shoea_flutter/screens/main_screens/profile_screen.dart';
 
 class MainAppScreen extends StatefulWidget {
-  const MainAppScreen({super.key});
+  MainAppScreen({super.key, this.currentTabIndex});
+  int? currentTabIndex = 0;
 
   static const String routeName = '/main_app';
 
@@ -15,7 +16,6 @@ class MainAppScreen extends StatefulWidget {
 }
 
 class _MainAppScreenState extends State<MainAppScreen> {
-  int currentTabIndex = 0;
   List<Widget> tabsBody = const [
     HomeScreen(),
     CartScreen(),
@@ -27,17 +27,17 @@ class _MainAppScreenState extends State<MainAppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabsBody[currentTabIndex],
+      body: tabsBody[widget.currentTabIndex ?? 0],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppConstants.kGrey1,
         selectedItemColor: AppConstants.kPrimaryColor1,
         unselectedItemColor: AppConstants.kGrey3,
         showUnselectedLabels: true,
-        currentIndex: currentTabIndex,
+        currentIndex: widget.currentTabIndex ?? 0,
         type: BottomNavigationBarType.fixed,
         onTap: (currentIndex) {
           setState(() {
-            currentTabIndex = currentIndex;
+            widget.currentTabIndex = currentIndex;
           });
         },
         items: const [

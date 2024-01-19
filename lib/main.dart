@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:shoea_flutter/constants.dart';
 import 'package:shoea_flutter/models/PlaceOrderItem.dart';
 import 'package:shoea_flutter/route_generator.dart';
-import 'package:shoea_flutter/screens/authentication_screens/create_order_pin_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/orders_screens.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
         primaryColor: AppConstants.kPrimaryColor1,
       ),
       initialRoute: null,
-      // initialRoute: CreateOrderPinScreen.routeName,
       onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
+
+      // home: OrdersScreen(),
     );
   }
 }
