@@ -492,6 +492,11 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                       cartList = tempList;
 
                       box.put(AppConstants.cartProductHiveKey, cartList);
+
+                      HelperMethod.showSnackbar(
+                        context,
+                        const Text('Product added to cart :)'),
+                      );
                     } else if (selectSize == '' && selectedColor != '') {
                       HelperMethod.showSnackbar(
                         context,

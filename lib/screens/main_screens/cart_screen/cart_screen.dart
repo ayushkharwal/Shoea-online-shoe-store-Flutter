@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoea_flutter/common/widgets/custom_button.dart';
@@ -72,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
 
     getCartItems();
 
-    log('cartList: ${jsonEncode(cartList)}');
+    // log('cartList: ${jsonEncode(cartList)}');
   }
 
   @override
@@ -100,151 +101,169 @@ class _CartScreenState extends State<CartScreen> {
                 onSelected: (item) => handleClick(item),
                 itemBuilder: (context) => [
                   const PopupMenuItem<int>(
-                      value: 0, child: Text('Clear Cart List')),
-                  // PopupMenuItem<int>(value: 1, child: Text('Settings')),
+                    value: 0,
+                    child: Text('Clear Cart List'),
+                  ),
                 ],
               ),
             ),
           ],
         ),
         bottomSheet: customBottomSheet(size.height),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: size.height * 0.02),
-              SizedBox(
-                child: ListView.separated(
-                  itemCount: cartList.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 20),
-                  itemBuilder: (context, index) {
-                    int productQuantity = int.parse(cartList[index].quantity);
+        body: cartList.isEmpty
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      AppConstants.cartEmptyIcon,
+                      height: 100,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text('Cart is Empty'),
+                  ],
+                ),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: size.height * 0.02),
+                    SizedBox(
+                      child: ListView.separated(
+                        itemCount: cartList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 20),
+                        itemBuilder: (context, index) {
+                          int productQuantity =
+                              int.parse(cartList[index].quantity);
 
-                    var wholeProduct = filteredProducts.firstWhere(
-                      (product) =>
-                          product['productId'] == cartList[index].productId,
-                      orElse: () => Map<String, dynamic>(),
-                    );
+                          var wholeProduct = filteredProducts.firstWhere(
+                            (product) =>
+                                product['productId'] ==
+                                cartList[index].productId,
+                            orElse: () => Map<String, dynamic>(),
+                          );
 
-                    // log('wholeProduct: $wholeProduct');
+                          // log('wholeProduct: $wholeProduct');
 
-                    return OrderWidget(
-                      label: cartList[index].productName,
-                      productColor: cartList[index].productColor,
-                      productSize: cartList[index].productSize,
-                      retail: (int.parse(cartList[index].productRetail) *
-                              int.parse(cartList[index].quantity))
-                          .toString(),
-                      quantity: cartList[index].quantity,
-                      productImage: cartList[index].imageLink,
-                      wholeProduct: wholeProduct,
-                      isActive: false,
-                      deleteFunc: () {
-                        setState(() {
-                          cartList.removeAt(index);
-                          calculateTotalPrice();
-                        });
-                      },
-                      onTapFunc: () {
-                        Navigator.pushNamed(
-                          context,
-                          AddToCartScreen.routeName,
-                          arguments: wholeProduct,
-                        );
-                      },
-                      mainButton: Container(
-                        margin: const EdgeInsets.only(right: 14),
-                        decoration: BoxDecoration(
-                          color: AppConstants.kGrey1,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 32,
+                          return OrderWidget(
+                            label: cartList[index].productName,
+                            productColor: cartList[index].productColor,
+                            productSize: cartList[index].productSize,
+                            retail: (int.parse(cartList[index].productRetail) *
+                                    int.parse(cartList[index].quantity))
+                                .toString(),
+                            quantity: cartList[index].quantity,
+                            productImage: cartList[index].imageLink,
+                            wholeProduct: wholeProduct,
+                            isActive: false,
+                            deleteFunc: () {
+                              setState(() {
+                                cartList.removeAt(index);
+                                calculateTotalPrice();
+                              });
+                            },
+                            onTapFunc: () {
+                              Navigator.pushNamed(
+                                context,
+                                AddToCartScreen.routeName,
+                                arguments: wholeProduct,
+                              );
+                            },
+                            mainButton: Container(
+                              margin: const EdgeInsets.only(right: 14),
                               decoration: BoxDecoration(
-                                // border: Border.all(color: Colors.black54),
+                                color: AppConstants.kGrey1,
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppConstants.kGrey2,
                               ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 8,
-                                    right: 8,
-                                    top: 6,
-                                    bottom: 6,
-                                  ),
-                                  child: Text(
-                                    cartList[index].quantity,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      // border: Border.all(color: Colors.black54),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppConstants.kGrey2,
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 8,
+                                          right: 8,
+                                          top: 6,
+                                          bottom: 6,
+                                        ),
+                                        child: Text(
+                                          cartList[index].quantity,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              right: -5,
-                              top: 0,
-                              bottom: 0,
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () async {
-                                  setState(() {
-                                    productQuantity = productQuantity + 1;
-                                    cartList[index].quantity =
-                                        productQuantity.toString();
+                                  Positioned(
+                                    right: -5,
+                                    top: 0,
+                                    bottom: 0,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () async {
+                                        setState(() {
+                                          productQuantity = productQuantity + 1;
+                                          cartList[index].quantity =
+                                              productQuantity.toString();
 
-                                    calculateTotalPrice();
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.add_rounded,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -2,
-                              left: -6,
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {
-                                  if (productQuantity > 1) {
-                                    setState(() {
-                                      productQuantity = productQuantity - 1;
-                                      cartList[index].quantity =
-                                          productQuantity.toString();
+                                          calculateTotalPrice();
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_rounded,
+                                        size: 18,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: -2,
+                                    left: -6,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        if (productQuantity > 1) {
+                                          setState(() {
+                                            productQuantity =
+                                                productQuantity - 1;
+                                            cartList[index].quantity =
+                                                productQuantity.toString();
 
-                                      calculateTotalPrice();
-                                    });
-                                  }
-                                },
-                                icon: const Icon(
-                                  Icons.minimize_rounded,
-                                  size: 18,
-                                  color: Colors.black,
-                                ),
+                                            calculateTotalPrice();
+                                          });
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.minimize_rounded,
+                                        size: 18,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                    SizedBox(height: size.height * 0.13),
+                  ],
                 ),
-              ),
-              SizedBox(height: size.height * 0.13),
-            ],
-          ),
-        ));
+              ));
   }
 
   customBottomSheet(double screenHeight) {

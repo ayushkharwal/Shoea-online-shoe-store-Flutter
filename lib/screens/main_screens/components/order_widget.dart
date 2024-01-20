@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:shoea_flutter/constants.dart';
-import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/add_to_cart_screen.dart';
 import 'package:shoea_flutter/utils/helper_method.dart';
 
 class OrderWidget extends StatelessWidget {
@@ -22,6 +20,8 @@ class OrderWidget extends StatelessWidget {
     required this.wholeProduct,
     required this.deleteFunc,
     this.onTapFunc,
+    this.isInViewOrder = false,
+    this.retailerId = '',
   });
 
   final Widget? addWidget;
@@ -38,6 +38,8 @@ class OrderWidget extends StatelessWidget {
   final Map<dynamic, dynamic> wholeProduct;
   var deleteFunc;
   var onTapFunc;
+  bool isInViewOrder;
+  String retailerId;
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +123,25 @@ class OrderWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        '$productColor | Size = $productSize',
-                        style: const TextStyle(fontSize: 12),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '$productColor | Size = $productSize ',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: isInViewOrder ? '| qty = $quantity' : '',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -139,6 +157,15 @@ class OrderWidget extends StatelessWidget {
                       mainButton,
                     ],
                   ),
+                  isInViewOrder
+                      ? Text(
+                          'retaier\'s contact: $retailerId',
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             )

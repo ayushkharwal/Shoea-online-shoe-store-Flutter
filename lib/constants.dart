@@ -27,6 +27,7 @@ class AppConstants {
   static const String codIcon = 'assets/icons/cod.svg';
   static const String orderPlacedIcon = 'assets/icons/orderplaced.svg';
   static const String pinGeneratedIcon = 'assets/icons/pingenerated.svg';
+  static const String cartEmptyIcon = 'assets/icons/emptycart.svg';
 
 // COLORS
   static const Color kPrimaryColor1 = Colors.black;

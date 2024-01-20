@@ -13,6 +13,7 @@ import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/notif
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/products_by_category_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/home_screen/sub_screens/see_all_offers_screen.dart';
 import 'package:shoea_flutter/screens/main_screens/main_app_screen.dart';
+import 'package:shoea_flutter/screens/main_screens/orders_screen/sub_screens/view_order_screen.dart';
 import 'package:shoea_flutter/screens/splash_screen.dart';
 import 'package:shoea_flutter/screens/welcome_screens/welcome_screen1.dart';
 import 'package:shoea_flutter/screens/welcome_screens/welcome_screen2.dart';
@@ -84,14 +85,22 @@ class RouteGenerator {
             builder: (context) => const ShippingAddressScreen());
 
       case AddNewAddressScreen.routeName:
-        return MaterialPageRoute(
-          builder: (context) => AddNewAddressScreen(),
-        );
+        return MaterialPageRoute(builder: (context) => AddNewAddressScreen());
 
       case SelectPaymentMethodScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => const SelectPaymentMethodScreen(),
-        );
+            builder: (context) => const SelectPaymentMethodScreen());
+
+      case ViewOrderScreen.routeName:
+        return MaterialPageRoute(builder: (context) {
+          Map<String, dynamic> args =
+              settings.arguments as Map<String, dynamic>;
+
+          return ViewOrderScreen(
+            cartList: args['cartList'],
+            orderDate: args['orderDate'],
+          );
+        });
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
