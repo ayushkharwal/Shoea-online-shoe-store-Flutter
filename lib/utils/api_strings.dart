@@ -1,6 +1,6 @@
 class ApiStrings {
-// static const String hostNameUrl = 'http://localhost:4444';
-  static const String hostNameUrl = 'http://192.168.1.7:4444';
+  static const String hostNameUrl = 'http://localhost:5555';
+  // static const String hostNameUrl = 'http://192.168.1.17:5555';
 
   static const String signUpUrl = '/api/signup';
   static const String signInUrl = '/api/signin';

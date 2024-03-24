@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLength,
     this.label,
     this.onChanged,
+    this.isObscured,
   });
 
   final Icon? prefixIcon;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLength;
   final String? label;
   final onChanged;
+  final bool? isObscured;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       maxLength: maxLength,
       onChanged: onChanged,
+      obscureText: isObscured ?? false,
       decoration: InputDecoration(
         label: Text(
           '$label',

@@ -36,6 +36,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<String> signInFunc() async {
     try {
+      print('Sign In Function CALLED!!!');
+
       setState(() {
         isResponseGenerating = true;
       });
@@ -47,11 +49,15 @@ class _SignInScreenState extends State<SignInScreen> {
         'password': passwordController.text,
       };
 
+      print('BC 1');
+
       http.Response response = await http.post(
         Uri.parse(apiUrl),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(bodyData),
       );
+
+      print('BC 2');
 
       var responseData = jsonDecode(response.body);
       print('signInFunc() responseData ---------------------> $responseData');
@@ -154,6 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: 20),
                     CustomTextField(
                       label: 'Password',
+                      isObscured: true,
                       textEditingController: passwordController,
                       prefixIcon: const Icon(
                         Icons.lock_rounded,
