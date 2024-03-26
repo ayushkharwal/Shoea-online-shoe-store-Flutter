@@ -1,7 +1,18 @@
-# Shoea - Online Shoe Store Ecommerce App
+# Shoea - Online Shoe Store Ecommerce Flutter App
 
 ## Description
-Shoea is an elegant and efficient ecommerce app designed specifically for shoe enthusiasts. Seamlessly blending elegance with efficiency, Shoea offers users a seamless journey through its meticulously crafted features.
+Shoea is an elegant and efficient ecommerce app designed specifically for shoe enthusiasts. It is build using flutter with node js, express js and mongo db as backend. It used hive for local storage database and http package to integrating api calls.
+
+## Features
+- **Secure Authentication**: Users can securely log in to their accounts using email and password authentication, with optional social login capabilities.
+- **Browsing and Shopping**: Users can effortlessly browse through an extensive catalog of shoes, adding desired items to their wishlist or cart with just a tap.
+- **Streamlined Checkout**: The app’s streamlined checkout process allows users to place orders conveniently, specifying delivery addresses and selecting preferred payment methods, including cash on delivery, UPI, or card payments.
+- **Comprehensive Order Management**: Shoea empowers users with comprehensive order management tools, allowing them to track ordered items and monitor their arrival status.
+- **Profile Customization**: The sleek profile page offers additional customization options, enabling users to manage their account settings and preferences with ease.
+- **Retailer Management**: For retailers, Shoea offers a separate admin panel application, providing comprehensive management capabilities for their ecommerce operations.
+- **Efficient Performance**: Built with efficiency in mind, Shoea utilizes Hive for local storage database, ensuring seamless performance even offline.
+- **Robust Connectivity**: The integration of APIs, backed by Node.js, Express.js, and MongoDB, ensures robust connectivity and scalability.
+
 
 ## Screenshots
 ![1_home_screen](https://github.com/ayushkharwal/Shoea-online-shoe-store-Flutter/assets/64960113/898616e2-1cb8-4592-bcff-5f7fd8b210a9)
@@ -23,15 +34,6 @@ Shoea is an elegant and efficient ecommerce app designed specifically for shoe e
 ![9_order_successful-portrait](https://github.com/ayushkharwal/Shoea-online-shoe-store-Flutter/assets/64960113/c196c14b-6276-4ba1-b3b7-52cea6638bf4)
 
 
-## Features
-- **Secure Authentication**: Users can securely log in to their accounts using email and password authentication, with optional social login capabilities.
-- **Browsing and Shopping**: Users can effortlessly browse through an extensive catalog of shoes, adding desired items to their wishlist or cart with just a tap.
-- **Streamlined Checkout**: The app’s streamlined checkout process allows users to place orders conveniently, specifying delivery addresses and selecting preferred payment methods, including cash on delivery, UPI, or card payments.
-- **Comprehensive Order Management**: Shoea empowers users with comprehensive order management tools, allowing them to track ordered items and monitor their arrival status.
-- **Profile Customization**: The sleek profile page offers additional customization options, enabling users to manage their account settings and preferences with ease.
-- **Retailer Management**: For retailers, Shoea offers a separate admin panel application, providing comprehensive management capabilities for their ecommerce operations.
-- **Efficient Performance**: Built with efficiency in mind, Shoea utilizes Hive for local storage database, ensuring seamless performance even offline.
-- **Robust Connectivity**: The integration of APIs, backed by Node.js, Express.js, and MongoDB, ensures robust connectivity and scalability.
 
 ## Installation
 You can clone this repository and run it using any Flutter-compatible development environment. Additionally, you'll need to set up the backend server using Node.js, Express.js, and MongoDB, and configure the app to communicate with the backend APIs.
